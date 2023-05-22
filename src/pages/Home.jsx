@@ -3,20 +3,20 @@ import Hearder from "../components/Hearder";
 
 import CurrencyTable from "../components/CurrencyTable";
 import axios from "axios";
-import { Route, Routes, useNavigate } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import CryptoDetail from "../components/cryptoDetails";
 
 const Home = () =>{
     const [cryptoData, setCryptoData] = useState('');
-    const navigate = useNavigate()
+    
 
   async function fetchData() {
     await axios.get('  https://api.coinlore.net/api/tickers/?start=200&limit=100',{ crossDomain: true })
       .then((res) => {
         if (res.status === 200) {
           setCryptoData(res.data.data);
-          localStorage.setItem("cryptoData", res.data.data);
-          
+          localStorage.setItem("cryptoData",JSON.stringify(res.data.data))
+         
         }
       })
       .catch((err) => {
